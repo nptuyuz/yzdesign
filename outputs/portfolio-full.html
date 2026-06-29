@@ -1,0 +1,248 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yzzz Portfolio</title>
+    <style>
+      /* 色彩变量：来自 PDF 要求，背景 #000000，字体 #f0ffff。 */
+      :root {
+        --bg: #000000;
+        --text: #f0ffff;
+        --page-width: 1440px;
+      }
+
+      /* 页面基础：清除浏览器默认边距，保持 PDF 黑色背景。 */
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      /* 外层舞台：所有 PDF 页面居中排列。 */
+      .portfolio {
+        width: var(--page-width);
+        margin: 0 auto;
+        background: var(--bg);
+      }
+
+      /* 固定顶部信息：CREATED BY 固定在窗口左上。 */
+      .fixed-brand {
+        position: fixed;
+        z-index: 50;
+        top: 33px;
+        left: calc((100vw - var(--page-width)) / 2 + 40px);
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1;
+        text-decoration: none;
+      }
+
+      /* 固定第二行作者名：Yzzz. 固定在 CREATED BY 下方。 */
+      .fixed-name {
+        position: fixed;
+        z-index: 50;
+        top: 50px;
+        left: calc((100vw - var(--page-width)) / 2 + 40px);
+        margin: 0;
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      /* 固定右上导航：HOME 到第 1 页，WORK 到第 3 页，ABOUT ME 到第 2 页。 */
+      .fixed-nav {
+        position: fixed;
+        z-index: 50;
+        top: 33px;
+        right: calc((100vw - var(--page-width)) / 2 + 40px);
+        display: flex;
+        gap: 64px;
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      /* 导航链接：保持 PDF 顶部白色小字。 */
+      .fixed-nav a {
+        color: var(--text);
+        text-decoration: none;
+        transition: opacity 160ms ease;
+      }
+
+      /* 导航悬停反馈：轻微透明，避免破坏 PDF 视觉。 */
+      .fixed-nav a:hover {
+        opacity: 0.62;
+      }
+
+      /* 单页容器：尺寸严格对应 PDF 原始页面尺寸。 */
+      .pdf-page {
+        position: relative;
+        width: var(--page-width);
+        overflow: hidden;
+        background: var(--bg);
+      }
+
+      /* PDF 页面图：保留原 PDF 背景和网格，不重排第 5-9 页内容。 */
+      .page-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      /* 第 3 页目录按钮：覆盖在原图片位置，负责点击跳转。 */
+      .catalog-button {
+        position: absolute;
+        display: block;
+        overflow: visible;
+        line-height: 0;
+        cursor: pointer;
+        transform-origin: center center;
+        transition: transform 220ms ease;
+      }
+
+      /* 第 3 页目录图片悬停：鼠标放上去放大 10%。 */
+      .catalog-button:hover {
+        transform: scale(1.1);
+        z-index: 8;
+      }
+
+      /* 目录裁切图片：与 PDF 原图位置完全对齐。 */
+      .catalog-button img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+      }
+
+      /* 小屏查看：保持整张 PDF 等比例缩放，不改变构图。 */
+      @media (max-width: 1440px) {
+        :root {
+          --page-width: 100vw;
+        }
+
+        .fixed-brand,
+        .fixed-name {
+          left: 40px;
+        }
+
+        .fixed-nav {
+          right: 40px;
+        }
+      }
+    .pixel-trail-layer{position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden}.pixel-trail-block{position:fixed;display:block;width:10px!important;height:10px!important;background:rgba(240,255,255,.58)!important;animation:pixelTrailFade 480ms ease-out forwards!important;box-shadow:none}@keyframes pixelTrailFade{0%{opacity:.9;transform:translate(0,0) scale(1)}55%{opacity:.55;transform:translate(-2px,2px) scale(1)}100%{opacity:0;transform:translate(-4px,6px) scale(.35)}}body,body *{cursor:none!important}.pixel-trail-layer{position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden}.pixel-cursor{position:fixed;left:-20px;top:-20px;z-index:1000;width:10px;height:10px;display:block;background:rgba(240,255,255,1);pointer-events:none;transform:translate(-50%,-50%)}.pixel-trail-block{position:fixed;display:block;width:10px!important;height:10px!important;background:rgba(240,255,255,1)!important;animation:pixelTrailFade 480ms ease-out forwards!important;box-shadow:none!important}@keyframes pixelTrailFade{0%{opacity:1;transform:translate(0,0) scale(1)}60%{opacity:.52;transform:translate(-2px,2px) scale(1)}100%{opacity:0;transform:translate(-4px,6px) scale(.35)}}</style>
+  </head>
+  <body>
+    <!-- 固定 CREATED BY：按你的要求固定在窗口上。 -->
+    <a class="fixed-brand" href="#page-01">CREATED BY</a>
+
+    <!-- 固定 Yzzz.：按你的要求作为第二行固定在窗口上。 -->
+    <p class="fixed-name">Yzzz.</p>
+
+    <!-- 固定导航：HOME=第一页，WORK=第三页目录，ABOUT ME=第二页。 -->
+    <nav class="fixed-nav" aria-label="Primary navigation">
+      <a href="#page-01">HOME</a>
+      <a href="#page-03">WORK</a>
+      <a href="#page-02">ABOUT ME</a>
+    </nav><div class="pixel-trail-layer"><span class="pixel-cursor"></span></div>
+
+    <!-- PDF 页面总容器：严格保持 1-11 页顺序。 -->
+    <main class="portfolio">
+      <!-- 第 1 页：网页主界面第一页，使用 PDF 原始背景图保留网格。 -->
+      <section id="page-01" class="pdf-page" style="height: 900px;">
+        <img class="page-image" src="images/page-01.png" alt="PDF 第 1 页：首页" />
+      </section>
+
+      <!-- 第 2 页：ABOUT ME 页面，导航 ABOUT ME 跳转到这里。 -->
+      <section id="page-02" class="pdf-page" style="height: 900px;">
+        <img class="page-image" src="images/page-02.png" alt="PDF 第 2 页：关于我" />
+      </section>
+
+      <!-- 第 3 页：目录页，所有图片作为按钮跳转到对应作品页。 -->
+      <section id="page-03" class="pdf-page" style="height: 1800px;">
+        <img class="page-image" src="images/page-03.png" alt="PDF 第 3 页：作品目录" />
+
+        <!-- 左 1：跳转第 6 页 cat.zip。 -->
+        <a class="catalog-button" href="#page-06" aria-label="打开第 6 页 cat.zip" style="left: 128.23px; top: 180.9px; width: 328.81px; height: 219.71px;">
+          <img src="images/catalog-left-01-page06.png" alt="目录左侧第一张图片，对应第 6 页" />
+        </a>
+
+        <!-- 左 2：跳转第 8 页 PLAN N+。 -->
+        <a class="catalog-button" href="#page-08" aria-label="打开第 8 页 PLAN N+" style="left: 318.85px; top: 467.44px; width: 322.54px; height: 344.7px;">
+          <img src="images/catalog-left-02-page08.png" alt="目录左侧第二张图片，对应第 8 页" />
+        </a>
+
+        <!-- 左 3：跳转第 9 页字体设计。 -->
+        <a class="catalog-button" href="#page-09" aria-label="打开第 9 页字体设计" style="left: 169.19px; top: 971.21px; width: 401.61px; height: 340.82px;">
+          <img src="images/catalog-left-03-page09.png" alt="目录左侧第三张图片，对应第 9 页" />
+        </a>
+
+        <!-- 左 4：跳转第 11 页 PHOTO。 -->
+        <a class="catalog-button" href="#page-11" aria-label="打开第 11 页 PHOTO" style="left: 280px; top: 1448.72px; width: 400.17px; height: 252.05px;">
+          <img src="images/catalog-left-04-page11.png" alt="目录左侧第四张图片，对应第 11 页" />
+        </a>
+
+        <!-- 右 1：跳转第 5 页 Lumen。 -->
+        <a class="catalog-button" href="#page-05" aria-label="打开第 5 页 Lumen" style="left: 829.84px; top: 121.47px; width: 501.66px; height: 279.24px;">
+          <img src="images/catalog-right-01-page05.png" alt="目录右侧第一张图片，对应第 5 页" />
+        </a>
+
+        <!-- 右 2：跳转第 7 页 2025 磁带日历。 -->
+        <a class="catalog-button" href="#page-07" aria-label="打开第 7 页 2025 磁带日历" style="left: 784.2px; top: 581.34px; width: 344.95px; height: 480px;">
+          <img src="images/catalog-right-02-page07.png" alt="目录右侧第二张图片，对应第 7 页" />
+        </a>
+
+        <!-- 右 3：跳转第 10 页 VIDEO。 -->
+        <a class="catalog-button" href="#page-10" aria-label="打开第 10 页 VIDEO" style="left: 859.75px; top: 1226.25px; width: 500px; height: 281.25px;">
+          <img src="images/catalog-right-03-page10.png" alt="目录右侧第三张图片，对应第 10 页" />
+        </a>
+      </section>
+
+      <!-- 第 4 页：网页主界面结束页。 -->
+      <section id="page-04" class="pdf-page" style="height: 900px;">
+        <img class="page-image" src="images/page-04.png" alt="PDF 第 4 页：感谢观看" />
+      </section>
+
+      <!-- 第 5 页：Lumen，完全保留 PDF 页面内容。 -->
+      <section id="page-05" class="pdf-page" style="height: 3150px;">
+        <img class="page-image" src="images/page-05.png" alt="PDF 第 5 页：Lumen 独立游戏设计" />
+      </section>
+
+      <!-- 第 6 页：cat.zip，完全保留 PDF 页面内容。 -->
+      <section id="page-06" class="pdf-page" style="height: 1800px;">
+        <img class="page-image" src="images/page-06.png" alt="PDF 第 6 页：cat.zip 品牌设计" />
+      </section>
+
+      <!-- 第 7 页：2025 磁带日历，完全保留 PDF 页面内容。 -->
+      <section id="page-07" class="pdf-page" style="height: 2700px;">
+        <img class="page-image" src="images/page-07.png" alt="PDF 第 7 页：2025 磁带日历" />
+      </section>
+
+      <!-- 第 8 页：PLAN N+，完全保留 PDF 页面内容。 -->
+      <section id="page-08" class="pdf-page" style="height: 3150px;">
+        <img class="page-image" src="images/page-08.png" alt="PDF 第 8 页：PLAN N+ UI 设计" />
+      </section>
+
+      <!-- 第 9 页：字体设计，完全保留 PDF 页面内容。 -->
+      <section id="page-09" class="pdf-page" style="height: 1800px;">
+        <img class="page-image" src="images/page-09.png" alt="PDF 第 9 页：字体设计" />
+      </section>
+
+      <!-- 第 10 页：VIDEO，完全保留 PDF 页面内容。 -->
+      <section id="page-10" class="pdf-page" style="height: 900px;">
+        <img class="page-image" src="images/page-10.png" alt="PDF 第 10 页：VIDEO" />
+      </section>
+
+      <!-- 第 11 页：PHOTO，完全保留 PDF 页面内容。 -->
+      <section id="page-11" class="pdf-page" style="height: 900px;">
+        <img class="page-image" src="images/page-11.png" alt="PDF 第 11 页：PHOTO" />
+      </section>
+    </main>
+  <script>(function(){let last=0;addEventListener('pointermove',e=>{let layer=document.querySelector('.pixel-trail-layer');if(!layer){layer=document.createElement('div');layer.className='pixel-trail-layer';document.body.appendChild(layer)}let cursor=document.querySelector('.pixel-cursor');if(!cursor){cursor=document.createElement('span');cursor.className='pixel-cursor';layer.appendChild(cursor)}cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';const now=performance.now();if(now-last<58)return;last=now;const b=document.createElement('span');b.className='pixel-trail-block';b.style.left=e.clientX+(Math.random()-.5)*2+'px';b.style.top=e.clientY+(Math.random()-.5)*2+'px';layer.appendChild(b);setTimeout(()=>b.remove(),480)},{passive:true})})();</script></body>
+</html>

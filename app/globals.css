@@ -1,0 +1,1399 @@
+@import "tailwindcss";
+
+@theme {
+  --color-portfolioBlack: #000000;
+  --color-portfolioText: #f0ffff;
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+
+/* 全局色彩：PDF 背景 #000000，字体 #f0ffff。 */
+:root {
+  --page-width: 1440px;
+  color-scheme: dark;
+  background: #000000;
+}
+
+/* 页面基础：清除默认边距，保留黑色页面底。 */
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: #000000;
+  color: #f0ffff;
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* 总容器：首页 1-4 页和详情页均按 PDF 宽度居中。 */
+.portfolio {
+  width: var(--page-width);
+  margin: 0 auto;
+  background: #000000;
+}
+
+/* 新导航黑色底：固定在顶部，下边缘羽化。 */
+.nav-veil {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 118px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .96) 48%, rgba(0, 0, 0, .72) 72%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* 固定 CREATED BY：新的顶部署名。 */
+.fixed-brand {
+  position: fixed;
+  z-index: 50;
+  top: 33px;
+  left: calc((100vw - var(--page-width)) / 2 + 40px);
+  color: #f0ffff;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* 固定 Yzzz.：新的第二行作者名。 */
+.fixed-name {
+  position: fixed;
+  z-index: 50;
+  top: 50px;
+  left: calc((100vw - var(--page-width)) / 2 + 40px);
+  margin: 0;
+  color: #f0ffff;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* 固定导航：HOME=第 1 页，WORK=第 3 页，ABOUT ME=第 2 页。 */
+.fixed-nav {
+  position: fixed;
+  z-index: 50;
+  top: 33px;
+  right: calc((100vw - var(--page-width)) / 2 + 40px);
+  display: flex;
+  gap: 64px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* 导航链接：保持 PDF 顶部小字号白字。 */
+.fixed-nav a {
+  color: #f0ffff;
+  text-decoration: none;
+  transition: opacity 160ms ease;
+}
+
+/* 导航悬停：轻微透明反馈。 */
+.fixed-nav a:hover {
+  opacity: .62;
+}
+
+/* 单页容器：按 PDF 原始尺寸承载页面图。 */
+.pdf-page {
+  position: relative;
+  width: var(--page-width);
+  overflow: hidden;
+  background: #000000;
+}
+
+/* PDF 页面图：使用清理图，删除旧顶部导航，保留背景和内容。 */
+.page-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 第 1 页 TextType 文案位置：对应 PDF 原文案坐标。 */
+.type-intro {
+  position: absolute;
+  left: 100px;
+  top: 96px;
+  width: 430px;
+  color: #f0ffff;
+  font-size: 18px;
+  line-height: 21.6px;
+  white-space: pre-line;
+}
+
+/* 第 3 页目录按钮：覆盖在每张目录图原本位置。 */
+.catalog-button {
+  position: absolute;
+  display: block;
+  overflow: visible;
+  line-height: 0;
+  cursor: pointer;
+  transform-origin: center center;
+  transition: transform 220ms ease;
+}
+
+/* 目录悬停效果：鼠标放上去图片放大 10%。 */
+.catalog-button:hover {
+  transform: scale(1.1);
+  z-index: 8;
+}
+
+/* 目录图片：裁切自 PDF 第 3 页，对齐原位置。 */
+.catalog-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* 详情页返回目录按钮。 */
+.detail-back {
+  position: fixed;
+  z-index: 50;
+  right: calc((100vw - var(--page-width)) / 2 + 40px);
+  bottom: 32px;
+  color: #f0ffff;
+  font-size: 14px;
+  text-decoration: none;
+  opacity: .82;
+}
+/* 第五页游戏地图：覆盖原五张地图图片区域。 */
+.lumen-map-stack {
+  position: absolute;
+  left: 79.94px;
+  top: 685.25px;
+  width: 1282.17px;
+  height: 350px;
+  z-index: 5;
+}
+
+/* 第五页地图卡片：默认保持 PDF 中的横向重叠顺序。 */
+.lumen-map-card {
+  position: absolute;
+  top: 0;
+  width: 452.17px;
+  height: 350px;
+  object-fit: cover;
+  transform-origin: center center;
+  transition: left 260ms ease, top 260ms ease, width 260ms ease, height 260ms ease, transform 260ms ease, box-shadow 260ms ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  cursor: zoom-in;
+}
+
+/* 第五页地图悬停：对应图片置顶并放大到画面中央。 */
+.lumen-map-card:hover {
+  position: fixed;
+  left: 50% !important;
+  top: 50%;
+  width: min(960px, 82vw);
+  height: min(540px, 58vh);
+  transform: translate(-50%, -50%);
+  z-index: 120 !important;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .78);
+}
+
+/* 第五页角色模型：替换游戏角色部分右侧图片。 */
+.lumen-model-wrap {
+  position: absolute;
+  left: 977.28px;
+  top: 1246.04px;
+  width: 382.38px;
+  height: 538.81px;
+  z-index: 6;
+}
+
+/* 第五页 3D canvas：透明背景，模型可旋转缩放。 */
+.lumen-model-canvas {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: grab;
+}
+
+.lumen-model-canvas:active {
+  cursor: grabbing;
+}
+
+/* 第五页实机演示视频：替换左侧旧图片，到位自动播放。 */
+.lumen-video-wrap {
+  position: absolute;
+  left: 80px;
+  top: 1839px;
+  width: 800px;
+  height: 443.33px;
+  z-index: 6;
+  overflow: hidden;
+  background: #000;
+}
+
+.lumen-demo-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 第 1 页 TextType 文案：Noto Sans SC Regular，字号 18，行距 21.6。 */
+.type-intro {
+  position: absolute;
+  left: 100px;
+  top: 96px;
+  width: 430px;
+  color: #f0ffff;
+  font-family: "Noto Sans SC", "Source Han Sans SC", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.6px;
+  white-space: pre-line;
+}
+
+/* 全局鼠标像素块拖尾层：不阻挡页面点击。 */
+.pixel-trail-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pixel-trail-block {
+  position: fixed;
+  display: block;
+  background: rgba(240, 255, 255, .9);
+  image-rendering: pixelated;
+  animation: pixelTrailFade 760ms ease-out forwards;
+}
+
+@keyframes pixelTrailFade {
+  0% { opacity: .9; transform: translate(0, 0) scale(1); }
+  55% { opacity: .55; transform: translate(-3px, 4px) scale(1); }
+  100% { opacity: 0; transform: translate(-8px, 12px) scale(.35); }
+}
+
+/* 第五页游戏地图：覆盖原五张地图图片区域。 */
+.lumen-map-stack {
+  position: absolute;
+  left: 79.94px;
+  top: 685.25px;
+  width: 1282.17px;
+  height: 350px;
+  z-index: 5;
+}
+
+/* 地图按钮：保留原始排版尺寸，单击时不推动布局。 */
+.lumen-map-button {
+  position: absolute;
+  top: 0;
+  width: 452.17px;
+  height: 350px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+/* 所有地图图片统一圆角 75px。 */
+.lumen-map-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 75px;
+}
+
+/* 单击后的地图预览层：出现于画面中央。 */
+.lumen-map-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, .72);
+  cursor: zoom-out;
+}
+
+.lumen-map-lightbox img {
+  width: min(960px, 82vw);
+  height: min(540px, 58vh);
+  object-fit: cover;
+  border-radius: 75px;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .78);
+}
+
+/* 第五页角色模型：替换游戏角色部分右侧图片。 */
+.lumen-model-wrap {
+  position: absolute;
+  left: 977.28px;
+  top: 1246.04px;
+  width: 382.38px;
+  height: 538.81px;
+  z-index: 6;
+}
+
+.lumen-model-canvas,
+.lumen-model-mount {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: grab;
+}
+
+.lumen-model-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.model-status {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: #f0ffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  background: rgba(0, 0, 0, .18);
+}
+
+/* 第五页实机演示视频：替换左侧旧图片，到位自动播放。 */
+.lumen-video-wrap {
+  position: absolute;
+  left: 80px;
+  top: 1839px;
+  width: 800px;
+  height: 443.33px;
+  z-index: 6;
+  overflow: hidden;
+  background: #000;
+}
+
+.lumen-demo-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 第二页挂绳工牌：放在右侧人像区域附近。 */
+.lanyard-scene {
+  --badge-rx: 0deg;
+  --badge-ry: 0deg;
+  --cord-x: 0px;
+  position: absolute;
+  left: 930px;
+  top: 150px;
+  width: 380px;
+  height: 560px;
+  z-index: 7;
+  perspective: 1000px;
+}
+
+.lanyard-cord {
+  position: absolute;
+  top: 0;
+  width: 7px;
+  height: 245px;
+  transform-origin: top center;
+  background: linear-gradient(90deg, #f0ffff, #7a8686 45%, #f0ffff);
+  border-radius: 999px;
+  opacity: .95;
+}
+
+.lanyard-cord-left {
+  left: 158px;
+  transform: translateX(var(--cord-x)) rotate(-17deg);
+}
+
+.lanyard-cord-right {
+  left: 218px;
+  transform: translateX(var(--cord-x)) rotate(17deg);
+}
+
+.lanyard-badge {
+  position: absolute;
+  left: 92px;
+  top: 220px;
+  width: 196px;
+  height: 274px;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--badge-rx)) rotateY(var(--badge-ry));
+  transition: transform 180ms ease;
+}
+
+.lanyard-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(240, 255, 255, .7);
+  border-radius: 20px;
+  backface-visibility: hidden;
+  background: #050606;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, .55);
+}
+
+.lanyard-front img {
+  width: 120px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.lanyard-front span {
+  position: absolute;
+  bottom: 34px;
+  font-size: 11px;
+  color: #f0ffff;
+  letter-spacing: 0;
+}
+
+.lanyard-back {
+  transform: rotateY(180deg);
+}
+
+.lanyard-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 第十一页数字 gallery：25 张图片占位。 */
+.dome-gallery {
+  position: absolute;
+  left: 110px;
+  top: 165px;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(5, 150px);
+  grid-auto-rows: 105px;
+  gap: 26px;
+  transform: perspective(900px) rotateX(4deg);
+}
+
+.dome-tile {
+  border: 1px solid rgba(240, 255, 255, .45);
+  border-radius: 30px;
+  background: rgba(240, 255, 255, .08);
+  color: #f0ffff;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.dome-tile:hover {
+  transform: translateY(-8px) scale(1.06);
+  background: rgba(240, 255, 255, .18);
+}
+
+/* 第十一页原本文字置顶，并在底下加黑色羽化底。 */
+.page11-title-veil {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 190px;
+  z-index: 20;
+  background: linear-gradient(180deg, #000 0%, rgba(0,0,0,.92) 58%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+}
+
+.page11-title {
+  position: absolute;
+  left: 40px;
+  top: 94px;
+  z-index: 21;
+  color: #f0ffff;
+  font-size: 18px;
+  line-height: 21.6px;
+  pointer-events: none;
+}
+/* 覆盖旧版 hover：现在第五页地图只通过单击放大。 */
+.lumen-map-card:hover {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  z-index: auto !important;
+  box-shadow: none !important;
+}
+/* 本轮修正：像素拖尾减少三分之二并缩小块尺寸。 */
+.pixel-trail-block {
+  background: rgba(240, 255, 255, .72);
+  animation-duration: 620ms;
+}
+
+/* 本轮修正：第二页工牌移到画面左侧，吊绳从页面顶端伸出。 */
+.lanyard-scene {
+  left: 82px !important;
+  top: 0 !important;
+  width: 360px;
+  height: 620px;
+}
+
+.lanyard-cord {
+  top: -8px;
+  height: 285px;
+  width: 5px;
+}
+
+.lanyard-cord-left {
+  left: 146px;
+}
+
+.lanyard-cord-right {
+  left: 206px;
+}
+
+.lanyard-badge {
+  left: 78px;
+  top: 252px;
+}
+
+/* 本轮修正：第十一页变成可横向拖动的穹顶图库。 */
+.dome-gallery {
+  left: 0 !important;
+  top: 120px !important;
+  width: 1440px;
+  height: 670px;
+  overflow: hidden;
+  display: block !important;
+  transform: none !important;
+  cursor: grab;
+  background: radial-gradient(ellipse at center, rgba(240,255,255,.04), rgba(0,0,0,0) 62%);
+}
+
+.dome-gallery::before,
+.dome-gallery::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+  width: 170px;
+  pointer-events: none;
+}
+
+.dome-gallery::before {
+  left: 0;
+  background: linear-gradient(90deg, #000 0%, rgba(0,0,0,0) 100%);
+}
+
+.dome-gallery::after {
+  right: 0;
+  background: linear-gradient(270deg, #000 0%, rgba(0,0,0,0) 100%);
+}
+
+.dome-track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2300px;
+  height: 640px;
+  transition: transform 80ms linear;
+  transform-style: preserve-3d;
+}
+
+.dome-tile {
+  position: absolute;
+  width: 150px;
+  height: 112px;
+  border: 1px solid rgba(240, 255, 255, .38);
+  border-radius: 34px;
+  background: rgba(240, 255, 255, .08);
+  color: #f0ffff;
+  font-size: 30px;
+  box-shadow: inset 0 0 26px rgba(240,255,255,.04), 0 18px 38px rgba(0,0,0,.38);
+  filter: grayscale(1);
+  cursor: pointer;
+  transform: perspective(780px) rotateY(calc((var(--tile-index) - 12) * -2deg));
+}
+
+.dome-tile:nth-child(5n + 1) { top: 26px; }
+.dome-tile:nth-child(5n + 2) { top: 158px; }
+.dome-tile:nth-child(5n + 3) { top: 294px; }
+.dome-tile:nth-child(5n + 4) { top: 430px; }
+.dome-tile:nth-child(5n) { top: 74px; }
+.dome-tile:nth-child(1) { left: 20px; }
+.dome-tile:nth-child(2) { left: 150px; }
+.dome-tile:nth-child(3) { left: 280px; }
+.dome-tile:nth-child(4) { left: 410px; }
+.dome-tile:nth-child(5) { left: 540px; }
+.dome-tile:nth-child(6) { left: 670px; }
+.dome-tile:nth-child(7) { left: 800px; }
+.dome-tile:nth-child(8) { left: 930px; }
+.dome-tile:nth-child(9) { left: 1060px; }
+.dome-tile:nth-child(10) { left: 1190px; }
+.dome-tile:nth-child(11) { left: 1320px; }
+.dome-tile:nth-child(12) { left: 1450px; }
+.dome-tile:nth-child(13) { left: 1580px; }
+.dome-tile:nth-child(14) { left: 1710px; }
+.dome-tile:nth-child(15) { left: 1840px; }
+.dome-tile:nth-child(16) { left: 1970px; }
+.dome-tile:nth-child(17) { left: 2100px; }
+.dome-tile:nth-child(18) { left: 2230px; }
+.dome-tile:nth-child(19) { left: 2360px; }
+.dome-tile:nth-child(20) { left: 2490px; }
+.dome-tile:nth-child(21) { left: 2620px; }
+.dome-tile:nth-child(22) { left: 2750px; }
+.dome-tile:nth-child(23) { left: 2880px; }
+.dome-tile:nth-child(24) { left: 3010px; }
+.dome-tile:nth-child(25) { left: 3140px; }
+
+.dome-tile:hover {
+  transform: perspective(780px) rotateY(calc((var(--tile-index) - 12) * -2deg)) scale(1.08);
+}
+
+.dome-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 170;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: rgba(0,0,0,.84);
+  color: #f0ffff;
+  cursor: zoom-out;
+}
+
+.dome-fullscreen span {
+  display: grid;
+  place-items: center;
+  width: min(520px, 76vw);
+  height: min(680px, 76vh);
+  border: 1px solid rgba(240,255,255,.48);
+  border-radius: 42px;
+  background: rgba(240,255,255,.08);
+  font-size: 86px;
+}
+
+/* 本轮修正：鼠标拖尾进一步变细，屏幕内同时存在的方块控制在 25 个以内。 */
+.pixel-trail-block {
+  width: 5px !important;
+  height: 5px !important;
+  background: rgba(240, 255, 255, .58);
+  animation-duration: 480ms !important;
+  box-shadow: none;
+}
+
+/* 本轮修正：第五页地图改回 hover 放大，热区对应 PDF 中每张图露出的部分。 */
+.lumen-map-stack {
+  overflow: visible !important;
+}
+
+.lumen-map-visuals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lumen-map-card,
+.lumen-map-card:hover {
+  position: absolute !important;
+  top: 0 !important;
+  width: 452.17px !important;
+  height: 350px !important;
+  object-fit: cover;
+  border-radius: 75px !important;
+  transform: none !important;
+  transition: none !important;
+  pointer-events: none;
+}
+
+.lumen-map-hit {
+  position: absolute;
+  top: 0;
+  width: 207.5px;
+  height: 350px;
+  z-index: 30;
+  border: 0;
+  border-radius: 75px;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.lumen-map-hit:last-child {
+  width: 452.17px;
+}
+
+.lumen-map-hit:focus-visible {
+  outline: 2px solid rgba(240, 255, 255, .8);
+  outline-offset: 6px;
+}
+
+.lumen-map-hover-preview {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 165;
+  width: min(960px, 82vw);
+  height: min(540px, 58vh);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: drop-shadow(0 28px 70px rgba(0,0,0,.75));
+}
+
+.lumen-map-hover-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 75px;
+}
+
+/* 本轮修正：第二页工牌使用可拖拽回弹的软绳结构。 */
+.lanyard-scene {
+  --drag-x: 0px;
+  --drag-y: 0px;
+  --cord-swing: 0px;
+  --badge-rx: 0deg;
+  --badge-ry: 0deg;
+  left: 82px !important;
+  top: 0 !important;
+  width: 360px;
+  height: 620px;
+  z-index: 8;
+  perspective: 900px;
+  pointer-events: none;
+}
+
+.lanyard-rope {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  transform: translateX(calc(var(--cord-swing) * .18));
+  transform-origin: 180px 0;
+  transition: transform 90ms linear;
+}
+
+.lanyard-rope-line {
+  fill: none;
+  stroke: rgba(240, 255, 255, .92);
+  stroke-width: 7;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(240,255,255,.16));
+}
+
+.lanyard-badge {
+  left: 78px !important;
+  top: 252px !important;
+  transform: translate3d(var(--drag-x), var(--drag-y), 0) rotateX(var(--badge-rx)) rotateY(var(--badge-ry)) !important;
+  transform-style: preserve-3d;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.lanyard-badge:active {
+  cursor: grabbing;
+}
+
+/* 本轮修正：第十一页每组 25 张严格 5x5 对齐，并横向复制延展。 */
+.dome-gallery {
+  left: 0 !important;
+  top: 118px !important;
+  width: 1440px !important;
+  height: 692px !important;
+  overflow: hidden;
+}
+
+.dome-track-grid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4100px !important;
+  height: 650px !important;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: none;
+}
+
+.dome-track-grid:active {
+  cursor: grabbing;
+}
+
+.dome-track-grid .dome-tile {
+  position: absolute !important;
+  left: calc(80px + var(--tile-group) * 900px + var(--tile-col) * 150px) !important;
+  top: calc(38px + var(--tile-row) * 120px) !important;
+  width: 118px !important;
+  height: 88px !important;
+  border-radius: 28px !important;
+  display: grid;
+  place-items: center;
+  transform: perspective(760px) rotateY(calc((var(--tile-col) - 2) * -5deg));
+}
+
+.dome-track-grid .dome-tile:hover {
+  transform: perspective(760px) rotateY(calc((var(--tile-col) - 2) * -5deg)) scale(1.08) !important;
+}
+
+/* 本轮新增：第十页右侧老式电视视频组。 */
+.tv-video-stack {
+  position: absolute;
+  left: 756px;
+  top: 236px;
+  width: 620px;
+  height: 343px;
+  z-index: 6;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .65));
+}
+
+.tv-stack-image {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.tv-screen {
+  position: absolute;
+  z-index: 2;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.25) brightness(.92);
+  mix-blend-mode: screen;
+  background: #000;
+  pointer-events: none;
+}
+
+.tv-screen-01 {
+  left: 4.7%;
+  top: 10.3%;
+  width: 18.2%;
+  height: 21.5%;
+  transform: perspective(500px) rotateY(-3deg) rotateZ(-.4deg);
+  border-radius: 10px;
+}
+
+.tv-screen-02 {
+  left: 2.9%;
+  top: 40.5%;
+  width: 17.7%;
+  height: 19.8%;
+  transform: perspective(500px) rotateY(-2deg) rotateZ(.2deg);
+  border-radius: 14px;
+}
+
+.tv-screen-03 {
+  left: 36.6%;
+  top: 26.1%;
+  width: 23.4%;
+  height: 26.8%;
+  transform: perspective(560px) rotateY(-1deg);
+  border-radius: 8px;
+}
+
+.tv-screen-04 {
+  left: 68.7%;
+  top: 32.8%;
+  width: 18.2%;
+  height: 20.9%;
+  transform: perspective(520px) rotateY(2deg) rotateZ(.2deg);
+  border-radius: 14px;
+}
+
+/* 本轮补强：第五页地图 hover 使用 CSS 兜底，不依赖点击或脚本事件。 */
+.lumen-map-hover-pair {
+  position: static;
+}
+
+.lumen-map-css-preview {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 166;
+  width: min(960px, 82vw);
+  height: min(540px, 58vh);
+  transform: translate(-50%, -50%);
+  display: none;
+  pointer-events: none;
+  filter: drop-shadow(0 28px 70px rgba(0,0,0,.75));
+}
+
+.lumen-map-css-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 75px;
+}
+
+.lumen-map-hit:hover + .lumen-map-css-preview,
+.lumen-map-hit:focus + .lumen-map-css-preview {
+  display: block;
+}
+
+/* 本轮重做：React Bits 风格 3D 物理挂绳工牌，固定在第二页左侧。 */
+.lanyard-scene {
+  position: absolute;
+  left: 36px !important;
+  top: 0 !important;
+  width: 430px !important;
+  height: 760px !important;
+  z-index: 9;
+  pointer-events: auto;
+  perspective: none;
+}
+
+.lanyard-wrapper {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transform: scale(1);
+  transform-origin: center top;
+}
+
+.lanyard-wrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.lanyard-loading {
+  width: 100%;
+  height: 100%;
+}
+
+/* 本轮重做：鼠标拖尾方块放大一倍，并更贴近鼠标。 */
+.pixel-trail-block {
+  width: 10px !important;
+  height: 10px !important;
+  background: rgba(240, 255, 255, .62) !important;
+  animation-duration: 480ms !important;
+  box-shadow: none !important;
+}
+
+/* 本轮修正：第十页四台独立电视放大，屏幕可点击放大视频。 */
+.tv-video-stack {
+  position: absolute;
+  left: 600px !important;
+  top: 118px !important;
+  width: 810px !important;
+  height: 690px !important;
+  z-index: 8;
+  filter: drop-shadow(0 34px 64px rgba(0,0,0,.72));
+}
+
+.tv-stack-image { display: none !important; }
+
+.tv-unit {
+  position: absolute;
+  overflow: visible;
+}
+
+.tv-frame-image {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.tv-unit-01 { left: 0; top: 0; width: 370px; height: 370px; }
+.tv-unit-02 { left: 352px; top: 34px; width: 360px; height: 260px; }
+.tv-unit-03 { left: 26px; top: 362px; width: 440px; height: 300px; }
+.tv-unit-04 { left: 452px; top: 334px; width: 350px; height: 280px; }
+
+.tv-screen-button {
+  position: absolute;
+  z-index: 1;
+  padding: 0;
+  border: 0;
+  background: #000;
+  overflow: hidden;
+  cursor: zoom-in;
+  filter: grayscale(1) contrast(1.18) brightness(.9);
+}
+
+.tv-screen-button video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tv-screen-button-01 { left: 19%; top: 19%; width: 63%; height: 43%; border-radius: 2px; }
+.tv-screen-button-02 { left: 7%; top: 22%; width: 61%; height: 54%; border-radius: 18px; }
+.tv-screen-button-03 { left: 5%; top: 8%; width: 68%; height: 75%; border-radius: 28px; }
+.tv-screen-button-04 { left: 9%; top: 27%; width: 61%; height: 48%; border-radius: 26px; }
+
+.tv-video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: rgba(0,0,0,.86);
+  cursor: zoom-out;
+}
+
+.tv-video-modal video {
+  width: min(1080px, 84vw);
+  max-height: 76vh;
+  object-fit: contain;
+  border: 1px solid rgba(240,255,255,.3);
+  box-shadow: 0 28px 90px rgba(0,0,0,.8);
+}
+
+/* 本轮修正：第 2 页 React Bits 3D 挂绳工作证位置和画布尺寸。 */
+.lanyard-scene {
+  left: 26px !important;
+  top: 0 !important;
+  width: 470px !important;
+  height: 820px !important;
+  z-index: 14 !important;
+  pointer-events: auto !important;
+}
+
+.lanyard-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+  align-items: flex-start !important;
+}
+
+/* 本轮修正：第 11 页每组 5x5 间距一致，hover 时图片/占位块放大。 */
+.dome-track-grid {
+  width: 3380px !important;
+}
+
+.dome-track-grid .dome-tile {
+  left: calc(80px + var(--tile-group) * 750px + var(--tile-col) * 150px) !important;
+  top: calc(38px + var(--tile-row) * 120px) !important;
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.dome-track-grid .dome-tile:hover {
+  z-index: 80;
+  background: rgba(240,255,255,.2) !important;
+  box-shadow: 0 28px 60px rgba(0,0,0,.62), inset 0 0 30px rgba(240,255,255,.08);
+  transform: perspective(760px) rotateY(calc((var(--tile-col) - 2) * -5deg)) scale(1.22) !important;
+}
+
+/* 第 7/9 页透明热区：鼠标放到 PDF 图片上后显示裁切放大图。 */
+.image-hover-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.image-hover-zone {
+  position: absolute;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  pointer-events: auto;
+}
+
+.image-hover-zone:focus-visible {
+  outline: 2px solid rgba(240,255,255,.7);
+  outline-offset: 4px;
+}
+
+.image-hover-preview {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 220;
+  display: none;
+  width: min(760px, 70vw);
+  max-height: 74vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: drop-shadow(0 30px 90px rgba(0,0,0,.82));
+}
+
+.image-hover-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 74vh;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.image-hover-zone:hover .image-hover-preview,
+.image-hover-zone:focus .image-hover-preview {
+  display: block;
+}
+
+.page08-computer-video {
+  position: absolute;
+  left: 784px;
+  top: 144px;
+  z-index: 10;
+  width: 548px;
+  height: 326px;
+  overflow: hidden;
+  background: #000;
+}
+
+.page08-computer-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Latest interaction tuning: hide the native cursor and use a fixed mosaic cursor. */
+body, body * { cursor: none !important; }
+.pixel-cursor {
+  position: fixed;
+  left: -20px;
+  top: -20px;
+  z-index: 1000;
+  width: 10px;
+  height: 10px;
+  display: block;
+  background: rgba(240, 255, 255, 1);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+.pixel-trail-block {
+  background: rgba(240, 255, 255, 1) !important;
+  opacity: 1;
+  animation: pixelTrailFade 480ms ease-out forwards !important;
+  box-shadow: none !important;
+}
+@keyframes pixelTrailFade {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  60% { opacity: .52; transform: translate(-2px, 2px) scale(1); }
+  100% { opacity: 0; transform: translate(-4px, 6px) scale(.35); }
+}
+#page-02 { overflow: visible !important; }
+.page08-computer-video {
+  left: 902px !important;
+  top: 906px !important;
+  width: 458px !important;
+  height: 488px !important;
+}
+.lanyard-scene { overflow: visible !important; }
+
+/* Latest page 8 correction: portrait video uses the uploaded 9:16 reference ratio. */
+.page08-computer-video {
+  left: 902px !important;
+  top: 580px !important;
+  width: 458px !important;
+  height: 814px !important;
+  border-radius: 0 !important;
+}
+.page08-computer-video video {
+  object-fit: cover !important;
+}
+.dome-fullscreen {
+  pointer-events: auto !important;
+}
+.dome-fullscreen.is-open {
+  display: grid !important;
+}
+
+
+/* Latest lanyard correction: top fixed point + curved flexible rope connected to badge hole. */
+.lanyard-scene { left: 150px !important; top: -6px !important; width: 560px !important; height: 900px !important; overflow: visible !important; }
+.lanyard-wrapper { overflow: visible !important; }
+
+/* Latest TV composite replacement: one transparent TV stack with original-color videos. */
+.tv-video-stack{left:560px!important;top:92px!important;width:850px!important;height:638px!important;z-index:8!important;filter:drop-shadow(0 34px 64px rgba(0,0,0,.72))!important;position:absolute!important}.tv-stack-composite{position:absolute;inset:0;z-index:4;width:100%;height:100%;object-fit:contain;pointer-events:none}.tv-unit,.tv-frame-image,.tv-stack-image{display:none!important}.tv-screen-button{position:absolute!important;z-index:2!important;padding:0!important;border:0!important;background:#000!important;overflow:hidden!important;cursor:zoom-in!important;filter:none!important;mix-blend-mode:normal!important}.tv-screen-button video{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;filter:none!important}.tv-screen-button-01{left:11.8%!important;top:19.6%!important;width:21.6%!important;height:19.8%!important;border-radius:2px!important}.tv-screen-button-02{left:8.2%!important;top:55.1%!important;width:23.6%!important;height:20.9%!important;border-radius:28px!important}.tv-screen-button-03{left:42.2%!important;top:45.4%!important;width:24.9%!important;height:27.2%!important;border-radius:34px!important}.tv-screen-button-04{left:74.0%!important;top:61.2%!important;width:18.0%!important;height:16.8%!important;border-radius:28px!important}.tv-video-modal{position:fixed!important;inset:0!important;z-index:230!important;display:none!important;place-items:center!important;background:rgba(0,0,0,.88)!important}.tv-video-modal.is-open{display:grid!important}.tv-video-modal video{width:min(1080px,84vw)!important;max-height:76vh!important;object-fit:contain!important;border:1px solid rgba(240,255,255,.32)!important;box-shadow:0 28px 90px rgba(0,0,0,.8)!important}.tv-video-modal-close{position:fixed;right:38px;top:32px;z-index:235;border:1px solid rgba(240,255,255,.55);background:#000;color:#f0ffff;padding:10px 18px;font-size:13px;letter-spacing:0;cursor:pointer}
+/* Latest page 11 fisheye gallery: aligned 5x5 groups, curved toward the viewer. */
+.dome-gallery-fisheye,.dome-gallery{perspective:820px!important;perspective-origin:50% 48%!important;border-radius:18px!important}.dome-track-grid{transform-style:preserve-3d!important}.dome-track-grid .dome-tile{transform:translateZ(var(--fish-z,0px)) rotateY(var(--fish-rot,0deg)) scale(var(--fish-scale,1))!important;transform-style:preserve-3d!important;transition:transform 180ms ease,background 180ms ease,box-shadow 180ms ease!important}.dome-track-grid .dome-tile:hover{transform:translateZ(calc(var(--fish-z,0px) + 95px)) rotateY(var(--fish-rot,0deg)) scale(calc(var(--fish-scale,1) * 1.18))!important}.dome-gallery::before{background:radial-gradient(ellipse at center,rgba(255,255,255,.08),rgba(0,0,0,0) 56%),linear-gradient(90deg,#000 0%,rgba(0,0,0,0) 100%)!important}.dome-gallery::after{background:linear-gradient(270deg,#000 0%,rgba(0,0,0,0) 100%)!important}
+
+/* Latest fix: photo fisheye wall with clipped warped tiles and image fullscreen. */
+.dome-gallery-fisheye,.dome-gallery{perspective:680px!important;perspective-origin:50% 48%!important;border-radius:18px!important;background:radial-gradient(ellipse at center,rgba(240,255,255,.05),rgba(0,0,0,0) 60%)!important}.dome-track-grid{transform-style:preserve-3d!important}.dome-track-grid .dome-tile{width:132px!important;height:96px!important;padding:0!important;border:0!important;background:#050505!important;overflow:hidden!important;clip-path:var(--fish-clip)!important;border-radius:32px!important;box-shadow:inset 0 0 28px rgba(0,0,0,.38),0 22px 42px rgba(0,0,0,.54)!important;transform:translateZ(var(--fish-z,0px)) rotateX(var(--fish-xrot,0deg)) rotateY(var(--fish-rot,0deg)) skewY(var(--fish-skew,0deg)) scale(var(--fish-scale,1))!important;transform-style:preserve-3d!important;transition:transform 180ms ease,filter 180ms ease,box-shadow 180ms ease!important}.dome-track-grid .dome-tile img{display:block;width:100%!important;height:100%!important;object-fit:cover!important;filter:grayscale(1) contrast(1.08) brightness(.82)!important;pointer-events:none!important}.dome-track-grid .dome-tile::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,255,255,.08),rgba(0,0,0,.54) 88%);pointer-events:none}.dome-track-grid .dome-tile:hover{z-index:120!important;transform:translateZ(calc(var(--fish-z,0px) + 120px)) rotateX(var(--fish-xrot,0deg)) rotateY(var(--fish-rot,0deg)) skewY(var(--fish-skew,0deg)) scale(calc(var(--fish-scale,1) * 1.22))!important;box-shadow:0 30px 74px rgba(0,0,0,.72)!important}.dome-track-grid .dome-tile:hover img{filter:grayscale(.25) contrast(1.06) brightness(.95)!important}.dome-fullscreen span{width:min(1040px,82vw)!important;height:min(680px,76vh)!important;border:0!important;border-radius:0!important;background:transparent!important}.dome-fullscreen span img{display:block;width:100%;height:100%;object-fit:contain;filter:none!important;box-shadow:0 28px 90px rgba(0,0,0,.82)}
+/* Latest fix: TV modal close follows top nav text style. */
+.tv-video-modal-close{position:fixed!important;right:40px!important;top:33px!important;z-index:235!important;border:0!important;background:transparent!important;color:#f0ffff!important;padding:0!important;font-size:14px!important;line-height:1!important;letter-spacing:0!important;font-weight:400!important;cursor:pointer!important;text-transform:uppercase!important}.tv-video-modal-close:hover{opacity:.72!important}
+
+/* Static export parity: keep the lanyard badge portrait visible in exported preview pages. */
+.static-lanyard-front-logo{display:none!important}
+.static-lanyard-back-photo{opacity:1!important;transform:none!important;backface-visibility:visible!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;image-rendering:auto!important;filter:none!important;z-index:1!important}
+.static-lanyard-hole{z-index:2!important}
+
+
+/* Final correction: model/lanyard/photo wall visibility and click preview. */
+.lumen-model-wrap { overflow: visible !important; }
+.lumen-model-canvas { background: radial-gradient(circle at center, rgba(240,255,255,.08), rgba(0,0,0,0) 58%) !important; }
+.lanyard-scene { left: 210px !important; top: 78px !important; width: 560px !important; height: 900px !important; overflow: visible !important; }
+.lanyard-wrapper { overflow: visible !important; }
+.dome-track-grid .dome-tile,
+.dome-track-grid .dome-tile img,
+.dome-track-grid .dome-tile:hover img { filter: none !important; }
+.dome-track-grid .dome-tile::after { background: radial-gradient(ellipse at center, rgba(255,255,255,.02), rgba(0,0,0,.34) 88%) !important; }
+.dome-fullscreen { z-index: 230 !important; background: rgba(0,0,0,.88) !important; cursor: zoom-out !important; }
+.dome-fullscreen.is-open { display: grid !important; }
+.dome-fullscreen span { width: min(1080px,84vw) !important; height: min(760px,76vh) !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; }
+.dome-fullscreen span img { display: block; width: 100%; height: 100%; object-fit: contain; filter: none !important; box-shadow: 0 28px 90px rgba(0,0,0,.82); }
+.dome-fullscreen::before { content: "EXIT"; position: fixed; right: 40px; top: 33px; z-index: 235; color: #f0ffff; font-size: 14px; line-height: 1; font-weight: 400; pointer-events: none; }
+
+/* Final page 11 click-to-center gallery override. */
+.dome-track-grid { width: 3320px !important; }
+.dome-track-grid .dome-tile {
+  left: calc(70px + var(--tile-group) * 750px + var(--tile-col) * 150px) !important;
+  top: calc(44px + var(--tile-row) * 118px) !important;
+  width: 132px !important;
+  height: 96px !important;
+}
+.dome-track-grid .dome-tile,
+.dome-track-grid .dome-tile img,
+.dome-track-grid .dome-tile:hover img { filter: none !important; }
+.dome-fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 230 !important;
+  display: none !important;
+  place-items: center !important;
+  background: rgba(0,0,0,.88) !important;
+  border: 0 !important;
+  cursor: zoom-out !important;
+}
+.dome-fullscreen.is-open { display: grid !important; }
+.dome-fullscreen::before { content: none !important; }
+.dome-fullscreen span {
+  width: min(1080px,84vw) !important;
+  height: min(760px,76vh) !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.dome-fullscreen span img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  filter: none !important;
+  box-shadow: 0 28px 90px rgba(0,0,0,.82) !important;
+}
+.dome-exit {
+  position: fixed !important;
+  right: 40px !important;
+  top: 33px !important;
+  z-index: 235 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #f0ffff !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  text-transform: uppercase !important;
+}
+.dome-exit:hover { opacity: .72 !important; }
+
+/* Final page 5 map click-to-center preview override. */
+.lumen-map-click-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 230 !important;
+  display: none !important;
+  place-items: center !important;
+  border: 0 !important;
+  background: rgba(0, 0, 0, .88) !important;
+  cursor: zoom-out !important;
+}
+
+.lumen-map-click-modal.is-open {
+  display: grid !important;
+}
+
+.lumen-map-click-modal img {
+  width: min(980px, 82vw) !important;
+  height: min(552px, 62vh) !important;
+  object-fit: cover !important;
+  border-radius: 75px !important;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .82) !important;
+}
+
+.lumen-map-exit {
+  position: fixed !important;
+  right: 40px !important;
+  top: 33px !important;
+  z-index: 235 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #f0ffff !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+  cursor: pointer !important;
+}
+
+.lumen-map-exit:hover {
+  opacity: .72 !important;
+}
+
+/* Final correction: page 5 model moves far upward; page 11 uses flat scalable photo tiles without fisheye distortion. */
+.lumen-model-wrap {
+  top: 880px !important;
+}
+
+.dome-gallery-fisheye,
+.dome-gallery {
+  perspective: none !important;
+  perspective-origin: 50% 50% !important;
+}
+
+.dome-track-grid {
+  transform-style: flat !important;
+}
+
+.dome-track-grid .dome-tile {
+  clip-path: none !important;
+  transform: scale(1) !important;
+  transform-style: flat !important;
+  pointer-events: auto !important;
+  border-radius: 26px !important;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease !important;
+}
+
+.dome-track-grid .dome-tile::after {
+  content: none !important;
+}
+
+.dome-track-grid .dome-tile:hover {
+  z-index: 120 !important;
+  transform: scale(1.18) !important;
+  box-shadow: 0 30px 74px rgba(0, 0, 0, .72) !important;
+}
+
+.dome-track-grid .dome-tile img {
+  filter: none !important;
+  pointer-events: none !important;
+}
+
+
+/* Final requested layout correction: page 11 label/group gap and page 5 model placement. */
+.lumen-model-wrap {
+  top: 1140px !important;
+  height: 620px !important;
+}
+
+.page11-title {
+  display: none !important;
+}
+
+.dome-track-grid {
+  width: 3320px !important;
+}
+
+.dome-track-grid .dome-tile {
+  left: calc(70px + var(--tile-group) * 750px + var(--tile-col) * 150px) !important;
+}
+

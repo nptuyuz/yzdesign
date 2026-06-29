@@ -1,0 +1,18 @@
+﻿import FixedHeader from "@/components/FixedHeader";
+import { detailPages, PdfSection } from "@/components/PortfolioPages";
+
+export default function Page() {
+  const page = detailPages["PAGE_ID"];
+
+  return (
+    <main className="bg-portfolioBlack text-portfolioText">
+      {/* 新固定导航：详情页也统一显示。 */}
+      <FixedHeader />
+      <div className="portfolio">
+        {/* 独立详情页：只显示当前 PDF 页面，不出现在首页。 */}
+        <PdfSection page={page} />
+      </div>
+      <a className="detail-back" href="/#page-03">BACK TO WORK</a>
+    </main>
+  );
+}

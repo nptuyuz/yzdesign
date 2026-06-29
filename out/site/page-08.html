@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yzzz Portfolio - PLAN N+ UI ??</title>
+<style>
+:root { --bg:#000000; --text:#f0ffff; --page-width:1440px; }
+html, body { margin:0; min-height:100%; background:var(--bg); color:var(--text); font-family:Arial, Helvetica, sans-serif; scroll-behavior:smooth; }
+.portfolio { width:var(--page-width); margin:0 auto; background:var(--bg); }
+.nav-veil { position:fixed; z-index:40; top:0; left:0; right:0; height:118px; pointer-events:none; background:linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.96) 48%, rgba(0,0,0,.72) 72%, rgba(0,0,0,0) 100%); }
+.fixed-brand { position:fixed; z-index:50; top:33px; left:calc((100vw - var(--page-width)) / 2 + 40px); color:var(--text); font-size:14px; line-height:1; text-decoration:none; }
+.fixed-name { position:fixed; z-index:50; top:50px; left:calc((100vw - var(--page-width)) / 2 + 40px); margin:0; color:var(--text); font-size:14px; line-height:1; }
+.fixed-nav { position:fixed; z-index:50; top:33px; right:calc((100vw - var(--page-width)) / 2 + 40px); display:flex; gap:64px; font-size:14px; line-height:1; }
+.fixed-nav a { color:var(--text); text-decoration:none; transition:opacity 160ms ease; }
+.fixed-nav a:hover { opacity:.62; }
+.pdf-page { position:relative; width:var(--page-width); overflow:hidden; background:var(--bg); }
+.page-image { display:block; width:100%; height:auto; user-select:none; pointer-events:none; }
+.type-intro { position:absolute; left:100px; top:96px; width:430px; color:var(--text); font-size:18px; line-height:21.6px; white-space:pre-line; }
+.type-cursor { display:inline-block; margin-left:1px; animation:cursorBlink .5s infinite alternate ease-in-out; }
+@keyframes cursorBlink { from { opacity:1; } to { opacity:0; } }
+.catalog-button { position:absolute; display:block; overflow:visible; line-height:0; cursor:pointer; transform-origin:center center; transition:transform 220ms ease; }
+.catalog-button:hover { transform:scale(1.1); z-index:8; }
+.catalog-button img { display:block; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.detail-back { position:fixed; z-index:50; bottom:32px; right:calc((100vw - var(--page-width)) / 2 + 40px); color:var(--text); font-size:14px; text-decoration:none; opacity:.82; }
+@media (max-width:1440px) { :root { --page-width:100vw; } .fixed-brand,.fixed-name{ left:40px; } .fixed-nav{ right:40px; } .detail-back{ right:40px; } }
+</style>
+</head>
+<body>
+<div class="nav-veil"></div>
+<a class="fixed-brand" href="page-01-preview.html#page-01">CREATED BY</a>
+<p class="fixed-name">Yzzz.</p>
+<nav class="fixed-nav" aria-label="Primary navigation">
+  <a href="page-01-preview.html#page-01">HOME</a>
+  <a href="page-01-preview.html#page-03">WORK</a>
+  <a href="page-01-preview.html#page-02">ABOUT ME</a>
+</nav>
+<main class="portfolio">
+  <!-- ????????? PDF ? 8 ??????????? -->
+  <section id="page-08" class="pdf-page" style="height:3150px;"><img class="page-image" src="../clean-images/page-08-clean.png" alt="PDF ? 8 ??PLAN N+ UI ??" /></section>
+</main>
+<a class="detail-back" href="page-01-preview.html#page-03">BACK TO WORK</a>
+
+</body>
+</html>

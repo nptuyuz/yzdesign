@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yzzz Portfolio Home</title>
+<style>
+:root { --bg:#000000; --text:#f0ffff; --page-width:1440px; }
+html, body { margin:0; min-height:100%; background:var(--bg); color:var(--text); font-family:Arial, Helvetica, sans-serif; scroll-behavior:smooth; }
+.portfolio { width:var(--page-width); margin:0 auto; background:var(--bg); }
+.nav-veil { position:fixed; z-index:40; top:0; left:0; right:0; height:118px; pointer-events:none; background:linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.96) 48%, rgba(0,0,0,.72) 72%, rgba(0,0,0,0) 100%); }
+.fixed-brand { position:fixed; z-index:50; top:33px; left:calc((100vw - var(--page-width)) / 2 + 40px); color:var(--text); font-size:14px; line-height:1; text-decoration:none; }
+.fixed-name { position:fixed; z-index:50; top:50px; left:calc((100vw - var(--page-width)) / 2 + 40px); margin:0; color:var(--text); font-size:14px; line-height:1; }
+.fixed-nav { position:fixed; z-index:50; top:33px; right:calc((100vw - var(--page-width)) / 2 + 40px); display:flex; gap:64px; font-size:14px; line-height:1; }
+.fixed-nav a { color:var(--text); text-decoration:none; transition:opacity 160ms ease; }
+.fixed-nav a:hover { opacity:.62; }
+.pdf-page { position:relative; width:var(--page-width); overflow:hidden; background:var(--bg); }
+.page-image { display:block; width:100%; height:auto; user-select:none; pointer-events:none; }
+.type-intro { position:absolute; left:100px; top:96px; width:430px; color:var(--text); font-size:18px; line-height:21.6px; white-space:pre-line; }
+.type-cursor { display:inline-block; margin-left:1px; animation:cursorBlink .5s infinite alternate ease-in-out; }
+@keyframes cursorBlink { from { opacity:1; } to { opacity:0; } }
+.catalog-button { position:absolute; display:block; overflow:visible; line-height:0; cursor:pointer; transform-origin:center center; transition:transform 220ms ease; }
+.catalog-button:hover { transform:scale(1.1); z-index:8; }
+.catalog-button img { display:block; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.detail-back { position:fixed; z-index:50; bottom:32px; right:calc((100vw - var(--page-width)) / 2 + 40px); color:var(--text); font-size:14px; text-decoration:none; opacity:.82; }
+@media (max-width:1440px) { :root { --page-width:100vw; } .fixed-brand,.fixed-name{ left:40px; } .fixed-nav{ right:40px; } .detail-back{ right:40px; } }
+</style>
+</head>
+<body>
+<div class="nav-veil"></div>
+<a class="fixed-brand" href="page-01-preview.html#page-01">CREATED BY</a>
+<p class="fixed-name">Yzzz.</p>
+<nav class="fixed-nav" aria-label="Primary navigation">
+  <a href="page-01-preview.html#page-01">HOME</a>
+  <a href="page-01-preview.html#page-03">WORK</a>
+  <a href="page-01-preview.html#page-02">ABOUT ME</a>
+</nav>
+<main class="portfolio">
+  <!-- ????? PDF ? 1-4 ?????? 5-11 ?? -->
+  <section id="page-01" class="pdf-page" style="height:900px;">
+    <img class="page-image" src="../clean-images/page-01-clean.png" alt="PDF ? 1 ????" />
+    <!-- ? 1 ??????TextType ??????? -->
+    <div class="type-intro" data-type-intro><span data-type-content></span><span class="type-cursor">_</span></div>
+  </section>
+  <section id="page-02" class="pdf-page" style="height:900px;"><img class="page-image" src="../clean-images/page-02-clean.png" alt="PDF ? 2 ?????" /></section>
+  <section id="page-03" class="pdf-page" style="height:1800px;">
+    <img class="page-image" src="../clean-images/page-03-clean.png" alt="PDF ? 3 ??????" />
+
+        <!-- ? 1???? 6 ? cat.zip? -->
+        <a class="catalog-button" href="page-06.html" aria-label="??? 6 ? cat.zip" style="left:128.23px; top:180.9px; width:328.81px; height:219.71px;"><img src="../images/catalog-left-01-page06.png" alt="????????????? 6 ?" /></a>
+        <!-- ? 2???? 8 ? PLAN N+? -->
+        <a class="catalog-button" href="page-08.html" aria-label="??? 8 ? PLAN N+" style="left:318.85px; top:467.44px; width:322.54px; height:344.7px;"><img src="../images/catalog-left-02-page08.png" alt="????????????? 8 ?" /></a>
+        <!-- ? 3???? 9 ?????? -->
+        <a class="catalog-button" href="page-09.html" aria-label="??? 9 ?????" style="left:169.19px; top:971.21px; width:401.61px; height:340.82px;"><img src="../images/catalog-left-03-page09.png" alt="????????????? 9 ?" /></a>
+        <!-- ? 4???? 11 ? PHOTO? -->
+        <a class="catalog-button" href="page-11.html" aria-label="??? 11 ? PHOTO" style="left:280px; top:1448.72px; width:400.17px; height:252.05px;"><img src="../images/catalog-left-04-page11.png" alt="????????????? 11 ?" /></a>
+        <!-- ? 1???? 5 ? Lumen? -->
+        <a class="catalog-button" href="page-05.html" aria-label="??? 5 ? Lumen" style="left:829.84px; top:121.47px; width:501.66px; height:279.24px;"><img src="../images/catalog-right-01-page05.png" alt="????????????? 5 ?" /></a>
+        <!-- ? 2???? 7 ? 2025 ????? -->
+        <a class="catalog-button" href="page-07.html" aria-label="??? 7 ? 2025 ????" style="left:784.2px; top:581.34px; width:344.95px; height:480px;"><img src="../images/catalog-right-02-page07.png" alt="????????????? 7 ?" /></a>
+        <!-- ? 3???? 10 ? VIDEO? -->
+        <a class="catalog-button" href="page-10.html" aria-label="??? 10 ? VIDEO" style="left:859.75px; top:1226.25px; width:500px; height:281.25px;"><img src="../images/catalog-right-03-page10.png" alt="????????????? 10 ?" /></a>
+
+  </section>
+  <section id="page-04" class="pdf-page" style="height:900px;"><img class="page-image" src="../clean-images/page-04-clean.png" alt="PDF ? 4 ??????" /></section>
+</main>
+
+<script>
+(function(){
+  const target = document.querySelector('[data-type-intro]');
+  if (!target) return;
+  const lines = [
+    '?????????????????????',
+    '???????????UI ???3D ????',
+    '?????????????????????',
+    '?????????????????????',
+    '?????????????????????'
+  ];
+  const text = lines.join('
+');
+  const content = target.querySelector('[data-type-content]');
+  let index = 0;
+  function typeNext(){
+    content.textContent = text.slice(0, index);
+    if (index < text.length) {
+      index += 1;
+      setTimeout(typeNext, 75);
+    }
+  }
+  setTimeout(typeNext, 250);
+})();
+</script>
+
+</body>
+</html>
